@@ -5,49 +5,27 @@ namespace Library
 {
     public class AppointmentService
     {
-        public static string CreateAppointment(string name, string id, string phoneNumber, DateTime date, string appoinmentPlace, string doctorName)
+        public string CreateAppointment(Paciente paciente, DateTime date, string appoinmentPlace,Doctor doctor,string códigoidentificador)
         {
-            StringBuilder stringBuilder = new StringBuilder("Scheduling appointment...\n");
-            Boolean isValid = true;
-
-            if (string.IsNullOrEmpty(name))
-            {
-                stringBuilder.Append("Unable to schedule appointment, 'name' is required\n");
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(id))
-            {
-                stringBuilder.Append("Unable to schedule appointment, 'id' is required\n");
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(phoneNumber))
-            {
-                stringBuilder.Append("Unable to schedule appointment, 'phone number' is required\n");
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(appoinmentPlace))
-            {
-                stringBuilder.Append("Unable to schedule appointment, 'appoinment place' is required\n");
-                isValid = false;
-            }
-
-
-            if (string.IsNullOrEmpty(doctorName))
-            {
-                stringBuilder.Append("Unable to schedule appointment, 'doctor name' is required\n");
-                isValid = false;
-            }
-
-            if (isValid)
-            {
-                stringBuilder.Append("Appoinment scheduled");
-            }
-
-            return stringBuilder.ToString();
+            string verificar= new Verificación().VerificarAppointment(paciente,doctor,appoinmentPlace);
+            return verificar;
         }
+        public Paciente Paciente{ get; set ;}
+        public Doctor Doctor{get ; set ;}
+        public Verificación verificar{get ; set;}
+        
 
     }
 }
+
+/*
+Esta clase no cumple con los patrones y principios SRP y Expert.
+Esta no cumple ya que si quisiéramos agregar otros datos del paciente como por ejemplo su edad o agregar otros datos al Doctor como por ejemplo su especialidad.
+Deberíamos de modificar toda la clase AppointmentService.
+Agregando otros datos al Paciente y al Doctor estamos agregando también datos para verificar.
+Por eso sería correcto crear una clase que verifique todos los datos del Paciente y del Doctor y a su vez imprima la consulta si esta es correcta.
+Esta clase tendría como clases asociadas a las clases Paciente y Doctor.
+AppointmentService está asociada a Verificación y tiene como responsabilidad retornar el resultado de Verificación y guardar la fecha y el código identificador .
+
+
+*/

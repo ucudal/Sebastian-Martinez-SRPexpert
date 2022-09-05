@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections;
+using System.Text;
 namespace SRP
 {
     public class Book
@@ -8,8 +9,6 @@ namespace SRP
         public string Title { get ; }
         public string Author { get ; }
         public string Code { get ;  }
-        public string LibrarySector { get ; set; }
-        public string LibraryShelve { get ; set; }
 
         public Book(String title, String author, String code)
         {
@@ -17,12 +16,19 @@ namespace SRP
             this.Author = author;
             this.Code = code;
         }
-
-        public void ShelveBook(String sector, String shelve)
+        public void Almacenar(Almacenamiento Book)
         {
-            this.LibrarySector = sector;
-            this.LibraryShelve = shelve;
+            this.book=Book;
         }
+        public Almacenamiento book { get; set;}
+/*
+Esta clase no cumple con el principio SRP.
+Ya que esta clase no tiene una responsabilidad única.
+Esta clase además de crear el libro también guarda donde se almacena. 
+Y si la universidad decide de cambiar la forma en la que se almacenan los libros, esta clase debe ser modificada
+
+
+*/
 
     }
 }
